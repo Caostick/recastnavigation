@@ -1403,6 +1403,7 @@ bool rcMergePolyMeshes(rcContext* ctx, rcPolyMesh** meshes, const int nmeshes, r
 		const rcPolyMesh* pmesh = meshes[i];
 		
 		const unsigned short ox = (unsigned short)floorf((pmesh->bmin[0]-mesh.bmin[0])/mesh.cs+0.5f);
+		const unsigned short oy = (unsigned short)floorf((pmesh->bmin[1]-mesh.bmin[1])/mesh.ch+0.5f);
 		const unsigned short oz = (unsigned short)floorf((pmesh->bmin[2]-mesh.bmin[2])/mesh.cs+0.5f);
 		
 		bool isMinX = (ox == 0);
@@ -1414,7 +1415,7 @@ bool rcMergePolyMeshes(rcContext* ctx, rcPolyMesh** meshes, const int nmeshes, r
 		for (int j = 0; j < pmesh->nverts; ++j)
 		{
 			unsigned short* v = &pmesh->verts[j*3];
-			vremap[j] = addVertex(v[0]+ox, v[1], v[2]+oz,
+			vremap[j] = addVertex(v[0]+ox, v[1]+oy, v[2]+oz,
 								  mesh.verts, firstVert, nextVert, mesh.nverts);
 		}
 		
